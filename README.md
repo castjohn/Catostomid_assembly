@@ -38,7 +38,7 @@ Flye includes a polishing step and you can start at any step in the assembly. 2 
 ```
 flye --nano-raw #reads.fasta/fastq --genome-size #genome_size_estimate_(2.5g for white sucker) --threads 78 --iterations #Polishing_iterations_desired_(rec_>2) -o /path/to/output/directory
 ```
-Flye outputs many files including a log so no need to make a nohup log file. 
+Flye outputs many files including a log so no need to make a nohup log file. Sandve lab follows Flye assembly with polishing with PEPPER then polishing with PILON. Waiting for PEPPER to be installed on server. 
 
 #### Racon
 
