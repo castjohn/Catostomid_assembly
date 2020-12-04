@@ -44,7 +44,7 @@ Flye outputs many files including a log so no need to make a nohup log file. San
 
 No matter what assembly you use, each benefits or requires 2-3 Racon runs to achieve the best consensus assembly. Use the following command to run racon:
 ```
-minimap2 -t 75 current_assembly.fasta IlluminaReads.fastq/fasta | gzip > assembly_racon1.paf.gz
+minimap2 -t 75 current_assembly.fasta nanoporeReads.fastq/fasta | gzip > assembly_racon1.paf.gz
 /home/krablab/Documents/apps/racon/build/bin/racon -t 75 NanoporeReads.fasta/fastq assembly_racon1.paf.gz current_assembly.fasta > assembly_racon1.fasta
 ```
 Recycle this command as you generate runs 2 and 3. Upload each to [gvolante](https://gvolante.riken.jp/) to assess BUSCO gene score. You should choose Busco V2/V3 and the Actinopterygii core genes dataset.
