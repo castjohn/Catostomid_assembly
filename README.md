@@ -20,8 +20,7 @@ nohup /home/krablab/Documents/apps/shasta-Linux-0.4.0 --input reads.fasta --comm
 ```
 
 #### Miniasm assembly
-A minimap run will precede the miniasm assembly. You are essentially mapping the nanopore reads to themselves for indexing purposes. The output will be a massive file so pipeing
-directly to zipped file saves space.
+A minimap run will precede the miniasm assembly. You are essentially mapping the nanopore reads to themselves for indexing purposes. The output will be a massive file so pipeing directly to zipped file saves space. Run in tmux and do not use nohup for minimap2
 ```
 minimap2 -x ava-ont -t 78 NanoporeReads.fastq.gz NanoporeReads.fastq.gz | gzip -9 all_reads.paf.gz
 ```
@@ -36,13 +35,13 @@ note that we use the '>' to output the assembly so if using nohup, do not use th
 
 Flye includes a polishing step and you can start at any step in the assembly. 2 polishing steps are recommended as a start the flag for this option is -iterations
 ```
-flye --nano-raw #reads.fasta/fastq --genome-size #genome_size_estimate_(2.5g for white sucker) --threads 78 --iterations #Polishing_iterations_desired_(rec_>2) -o /path/to/output/directory
+flye --nano-raw #reads.fasta/fastq --genome-size #genome_size_estimate_(2.5g_white_sucker) --min-overlap #best_results_5000-20000 --threads 78 --iterations #Polishing_iterations_desired_(rec_>2) -o /path/to/output/directory
 ```
 Flye outputs many files including a log so no need to make a nohup log file. Sandve lab follows Flye assembly with polishing with PEPPER then polishing with PILON. Waiting for PEPPER to be installed on server. 
 
 #### Racon
 
-No matter what assembly you use, each benefits or requires 2-3 Racon runs to achieve the best consensus assembly. Use the following command to run racon:
+No matter what assembly you use, each benefits or requires 2-3 Racon runs to achieve the best consensus assembly. Remember not to use nohup for minimap2. Use the following command to run racon:
 ```
 minimap2 -t 75 current_assembly.fasta nanoporeReads.fastq/fasta | gzip > assembly_racon1.paf.gz
 /home/krablab/Documents/apps/racon/build/bin/racon -t 75 NanoporeReads.fasta/fastq assembly_racon1.paf.gz current_assembly.fasta > assembly_racon1.fasta
