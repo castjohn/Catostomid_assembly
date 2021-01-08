@@ -41,7 +41,7 @@ Flye outputs many files including a log so no need to make a nohup log file. San
 
 #### Racon
 
-No matter what assembly you use, each benefits or requires 2-3 Racon runs to achieve the best consensus assembly. Remember not to use nohup for minimap2. Use the following command to run racon:
+Flye includes a "racon-like" consensus polishing step so a subsequent racon run is detrimental. For all other assemblies considered above, each benefits or requires 2-3 Racon runs to achieve the best consensus assembly. Remember not to use nohup for minimap2. Use the following command to run racon:
 ```
 minimap2 -t 75 current_assembly.fasta nanoporeReads.fastq/fasta | gzip > assembly_racon1.paf.gz
 /home/krablab/Documents/apps/racon/build/bin/racon -t 75 NanoporeReads.fasta/fastq assembly_racon1.paf.gz current_assembly.fasta > assembly_racon1.fasta
