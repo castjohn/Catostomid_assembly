@@ -61,4 +61,16 @@ THREADS=$4 #threads to be used in bwa, samtools view, and pilon
 ```
 We run 2 or three iterations of pilon to achieve the best assembly. replace $1 with the most recent assembly. Upload each iteration to gvolante again to assess assembly completeness.
 
+####purge_haplotigs
+For highly heterozygous regions of the genome, contigs can be assembled as separate primary contigs. purge_haplotigs uses syntenic mapping to find heterozygous contigs and associated hplotigs and purges the haplotigs to another file. 
 
+```
+bash /mnt/krab3/CC5/scripts/AISO_purge_haplotigs_draftII-csj.sh /mnt/krab3/CC5/CC5_Ccom_AllCat.fastq.gz /mnt/krab3/CC5/assemblies/Flye/ovlp10000/pilon/pilon2/out3/CC5_assembly_Flye_10000ovlp.pilon2.fasta /mnt/krab3/CC5/assemblies/Flye/ovlp10000/purge_haplotigs
+```
+####Kraken2
+Kraken2 blasts your assembly against microbial genomes and creates a report so that you can remove microbial DNA contamination from your assembly
+```
+bash /mnt/krab3/CC5/scripts/AISO_kraken2-csj.sh krakendb 40 /mnt/krab3/CC5/assemblies/Flye/ovlp10000/kraken/Drerio/GCA_000002035.4_GRCz11_genomic.fasta /mnt/krab3/CC5/assemblies/Flye/ovlp10000/purge_haplotigs/CC5_assembly_Flye_10000ovlp.pilon2.primcont.fasta CC5_kraken_rep
+```
+####Ancoring to razorback genome
+Trevor will try syntenic mapping to the Razorback genome to see if White Sucker karyotypes are conserved. 
